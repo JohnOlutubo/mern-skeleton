@@ -1,0 +1,9 @@
+{
+  "name": "mern-skeleton",
+  "version": "1.0.0",
+  "description": "The skeleton is a basic but fully functioning MERN web application with user create, read, update, delete (CRUD),and authentication-authorization (auth) capabilities",
+  "main": "index.js",
+  "repository": "yhttps://github.com/JohnOlutubo/mern-skeleton.git",
+  "author": "John Olutubo",
+  "license": "MIT"
+}
