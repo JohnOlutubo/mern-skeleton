@@ -1,0 +1,15 @@
+// This code configures Babel with presets for the latest JS features and
+// specifies the current version of Node as the target environment.
+
+{
+  "presets": [
+    [
+      "@babel/present-env",
+      {
+        "targets": {
+          "node": "current"  // Instructs babel to compile against the current version of Node and allows the use of expressions such as async/await in my backend code
+        }
+      }
+    ]
+  ]
+}
