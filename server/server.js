@@ -8,14 +8,24 @@ app.listen(config.port, (err) => {
   }
   console.info("Server started on port %s.", config.port);
 });
-
+mongoose.set("strictQuery", false);
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongoUri, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiesTopology: true,
-});
+mongoose.connect(
+  config.mongoUri,
+  {
+    useNewUrlParser: true,
+    // useCreateIndex: true,
+    useUnifiedTopology: true,
+  },
+  (error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(`successfully connected to database ${config.mongoUri}`);
+    }
+  }
+);
 
-mongoose.connection.on("error", () => {
-  throw new Error(`unable to connect to database: ${mongoUri}`);
-});
+/* mongoose.connection.on("error", () => {
+  throw new Error(`unable to connect to database: ${config.mongoUri}`);
+}); */

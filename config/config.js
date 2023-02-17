@@ -11,12 +11,12 @@ const config = {
   // The location of MongoDB database instance for the project
   mongoUri:
     process.env.MONGODB_URI ||
-    process.env.MONGO_HOST ||
-    "mongodb://" +
+    process.env.MONGO_HOST || "mongodb://localhost:27017/mernproject",
+    /* "mongodb://" +
       (process.env.IP || "localhost") +
       ":" +
       (process.env.MONGO_PORT || "27017") +
-      "/mernproject",
+      "/mernproject", */
 };
 
 export default config;
