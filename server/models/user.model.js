@@ -49,5 +49,37 @@ UserSchema.virtual('password')
     return this._password
   })
 
+  // Define a set of methods that can be called on a user object
+UserSchema.methods = {
+
+  // A method for authenticating a user's password
+  authenticate: function(plainText) {
+    // Encrypt the plain-text password and compare it to the stored hashed password
+    return this.encryptPassword(plainText) === this.hashed_password
+  },
+
+  // A method for encrypting a plain-text password using a 'salt' value
+  encryptPassword: function(password) {
+    // If no password was provided, return an empty string
+    if (!password) return ''
+    try {
+      // Create a SHA1 hash using the provided 'salt' value and the plain-text password
+      return crypto
+        .createHmac('sha1', this.salt)
+        .update(password)
+        .digest('hex')
+    } catch (err) {
+      // If an error occurred, return an empty string
+      return ''
+    }
+  },
+
+  // A method for generating a random 'salt' value
+  makeSalt: function() {
+    // Generate a random number based on the current time and a random number
+    return Math.round((new Date().valueOf() * Math.random())) + ''
+  }
+}
+
 
 export default mongoose.model("User", UserSchema); // so that it can be used by the rest of the backend code.
