@@ -14,13 +14,19 @@ const UserSchema = new mongoose.Schema({
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
     required: "Email is required",
   },
-  // These Date objects will be automatically created by the program to store timestamps 
+  // These Date objects will be automatically created by the program to store timestamps
   // that show the exact time when a user is registered or when their information is modified.
   created: {
     type: Date,
     default: Date.now,
   },
   updated: Date,
+
+  hashed_password: {
+    type: String,
+    required: "Password is required",
+  },
+  Salt: String
 });
 
 export default mongoose.model("User", UserSchema); // so that it can be used by the rest of the backend code.
