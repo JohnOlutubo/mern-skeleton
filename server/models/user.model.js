@@ -29,4 +29,6 @@ const UserSchema = new mongoose.Schema({
   Salt: String
 });
 
+
+
 export default mongoose.model("User", UserSchema); // so that it can be used by the rest of the backend code.
