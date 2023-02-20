@@ -30,5 +30,23 @@ const getErrorMessage = (err) => {
   return message
 }
 
-// Export the getErrorMessage function for use in other parts of the application
+
+
+// add another function that takes an error object as input and generates an appropriate error message
+const getUniqueErrorMessage = (err) => {
+  let output
+  try { // try to extract field name from error message
+    let fieldName = err.message.substring(
+      err.message.lastIndexOf('.$') + 2, // get index of start of field name
+      err.message.lastIndexOf('_1') // get index of end of field name
+    )
+    // format field name to start with uppercase letter and end with "already exists"
+    output = fieldName.charAt(0).toUpperCase() + fieldName.slice(1) + ' already exists'
+  } catch (ex) { // if error occurs while extracting field name, use default error message
+    output = 'Unique field already exists'
+  }
+  return output // return generated error message as a string
+}
+
+
 export default { getErrorMessage }
