@@ -13,6 +13,6 @@ router
   .put(userCtrl.update)
   .delete(userCtrl.remove);
 
-router.param("userId", userCtrl.userByID);
+router.param("userId", userCtrl.userByID); //The userByID controller function uses the value in the :userId parameter to query the database by _id and load the matching user's details.
 
 export default router;
