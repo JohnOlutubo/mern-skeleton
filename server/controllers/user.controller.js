@@ -69,9 +69,23 @@ const read = (req, res) => {
 };
 
 
-const update = (req, res, next) => {
-  /* ... */
+const update = async (req, res) => {
+  try {
+    let user = req.profile; //The update function retrieves the user details from req.profile
+    user = extend(user, req.body); // Uses the lodash module to extend and merge the changes that came in the request body to update the user data.
+    user.updated = Date.now(); // The updated field is populated with the current date to reflect the last updated timestamp.
+    await user.save();
+    user.hashed_password = undefined;
+    user.salt = undefined;
+    res.json(user);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
 };
+
+
 const remove = (req, res, next) => {
   /* ... */
 };
