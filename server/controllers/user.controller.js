@@ -63,8 +63,12 @@ const userByID = async (req, res, next, id) => {
 };
 
 const read = (req, res) => {
-  /* ... */
+  req.hashed_password = undefined; // removes sensitive information
+  req.profile.salt = undefined;
+  return res.json(req.profile); // sends the user object back to the user in the response.
 };
+
+
 const update = (req, res, next) => {
   /* ... */
 };
