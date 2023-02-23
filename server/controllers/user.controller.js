@@ -3,8 +3,8 @@
 // when a route request is received by the server.
 
 import User from "../models/user.model";
-import extend from "lodash/extend";
-import ErrorHandler from "./error.controller";
+import extend from "lodash/extend";  // lodash library provides utility functions for common programming tasks, including the manipulation of arrays and objects.
+import errorHandler from "./error.controller";
 
 
 /* This function creates a new user with the user JSON object that's received in the POST request from the frontend within req.body. */
