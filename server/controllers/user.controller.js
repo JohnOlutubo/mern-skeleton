@@ -39,7 +39,7 @@ const list = async (req, res) => {
 
 const userByID = async (req, res, next, id) => {
   try {
-    // This line tries to find a user in the database with the specified ID. 
+    // This line tries to find a user in the database with the specified ID.
     let user = await User.findById(id);
 
     // This block of code runs if no user is found with the specific ID.
@@ -48,7 +48,7 @@ const userByID = async (req, res, next, id) => {
         error: "User not found",
       });
 
-      // If a user is found, this line adds the user to the request object under the "profile" key.
+    // If a user is found, this line adds the user to the request object under the "profile" key.
     req.profile = user;
 
     // This line calls the "next" function, which moves on the next function in the route's middleware chain.
@@ -68,7 +68,6 @@ const read = (req, res) => {
   return res.json(req.profile); // sends the user object back to the user in the response.
 };
 
-
 const update = async (req, res) => {
   try {
     let user = req.profile; //The update function retrieves the user details from req.profile
@@ -80,14 +79,23 @@ const update = async (req, res) => {
     res.json(user);
   } catch (err) {
     return res.status(400).json({
-      error: errorHandler.getErrorMessage(err)
-    })
+      error: errorHandler.getErrorMessage(err),
+    });
   }
 };
 
-
-const remove = (req, res, next) => {
-  /* ... */
+const remove = async (req, res) => {
+  try {
+    let user = req.profile; // retrieve the user
+    let deletedUser = await user.remove(); //delete the user from database
+    deletedUser.hashed_password = undefined;
+    deletedUser.salt = undefined;
+    res.json(deletedUser); //return the deleted user object in the response.
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
 };
 
 export default { create, userByID, read, list, remove, update };
