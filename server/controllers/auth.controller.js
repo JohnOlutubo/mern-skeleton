@@ -52,8 +52,17 @@ const requireSignin = expressJwt({
   userProperty: "auth",
 });
 
-const hasAuthourization = (req, res) => {
-  /* */
+// hasAuthorization function is to be added to routes that require both authentication and authorization.
+// whether the authenticated user is the same as the user being updated or
+// deleted before the corresponding CRUD controller function is allowed to proceed. 
+const hasAuthorization = (req, res, next) => {
+  const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
+  if (!authorized) {
+    return res.status("403").json({
+      error: "User is not authorized",
+    });
+  }
+  next();
 };
 
-export default { signin, signout, requireSignin, hasAuthourization };
+export default { signin, signout, requireSignin, hasAuthorization };
