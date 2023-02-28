@@ -1,5 +1,9 @@
 import User from "../models/user.model";
 import jwt from "jsonwebtoken";
+// To protect access to the read, update, and delete routes, the server will need to check
+// that the requesting client is actually an authenticated and authorized user.
+// The express-jwt module is a piece of middleware that validates JSON Web Tokens
+// and checks whether the requesting user is signed in and has a valid JWT when a protected route is accessed
 import expressJwt from "express-jwt";
 import config from "./../../config/config.js";
 
@@ -42,7 +46,11 @@ const signout = (req, res) => {
   });
 };
 
-// const requireSignin = ;
+// requireSignin can be added to any route that should be protected against unauthenticated access.
+const requireSignin = expressJwt({
+  secret: config.jwtSecret,
+  userProperty: "auth",
+});
 
 const hasAuthourization = (req, res) => {
   /* */
